@@ -17,4 +17,22 @@ module.exports = [
     cpf: '000.000.000-30',
     ra: '1236',
   },
+  {
+    nome: 'Carlos José',
+    email: 'carlos@gmail.com',
+    cpf: '000.000.000-40',
+    ra: '1237',
+  },
+  {
+    nome: 'Matheus Silva',
+    email: 'matheus@gmail.com',
+    cpf: '000.000.000-50',
+    ra: '1238',
+  },
+  {
+    nome: 'Ana Maria',
+    email: 'ana@gmail.com',
+    cpf: '000.000.000-60',
+    ra: '1239',
+  },
 ];
