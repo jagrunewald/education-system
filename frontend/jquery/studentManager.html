@@ -13,7 +13,7 @@
       Módulo academico
     </header>
     <ul class="nav-links">
-      <a href="#" class="nav-item">
+      <a href="studentsList.html" class="nav-item">
         <li>Alunos</li>
       </a>
     </ul>
@@ -22,8 +22,9 @@
     <header class="main-header">
       Consulta de Alunos
     </header>
-    <div class="content-page">
-      <form action="" class="form">
+    <div class="loader"></div>
+    <div class="content-page display-none">
+      <form action="" class="form" id="student-form">
         <div class="form-group">
           <label for="name">Nome</label>
           <input type="text" name="name" id="name">
@@ -38,7 +39,7 @@
         </div>
         <div class="form-group">
           <label for="cpf">CPF</label>
-          <input type="number" name="cpf" id="cpf">
+          <input type="text" name="cpf" id="cpf">
         </div>
         <div class="actions">
           <button class="btn">Cancelar</button>
@@ -47,6 +48,8 @@
       </form>
     </div>
   </section>
+  <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+  <script src="js/studentManager.js"></script>
   
 </body>
 </html>

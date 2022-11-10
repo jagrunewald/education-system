@@ -1,6 +1,5 @@
 $(document).ready(function() {
   fetchStudentsList();
-  console.log(1);
 })
 
 function fetchStudentsList() {
@@ -18,12 +17,16 @@ function fetchStudentsList() {
             <td>${student.nome}</td>
             <td>${student.cpf}</td>
             <td>
-              <a href="#">Editar</a>
+              <a href="studentManager.html?ra=${student.ra}">Editar</a>
               <a href="#">Excluir</a>
             </td>
           </tr>
 
         `);
+    
       });
+
+      $(".loader").hide("fast");
+      $(".content-page").show("slow");
     });
 }
