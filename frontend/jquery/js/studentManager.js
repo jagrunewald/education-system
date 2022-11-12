@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(() => {
   fetchStudent();
 });
 
@@ -8,10 +8,10 @@ function fetchStudent() {
 
   if(ra) {
     fetch(`http://localhost:3000/students/find/${ra}`)
-    .then(function(response) {
+    .then((response) => {
       return response.json();
     })
-    .then(function(data) {
+    .then((data) => {
       const studentForm = $("#student-form");
       studentForm.find("#name").val(data.nome);
       studentForm.find("#email").val(data.email);

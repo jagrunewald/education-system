@@ -1,15 +1,40 @@
 $(document).ready(function() {
   fetchStudentsList();
-})
+  $("body").on("click", ".remove-student", function() {
+    const ra = $(this).data("ra");
+    const confirmation = confirm("Você realmente deseja excluir esse estudante?");
+    
+    if(confirmation) {
+      deleteStudent(ra);
+    }
+    
+  });
+});
 
-function fetchStudentsList() {
-  fetch("http://localhost:3000/students/list")
-    .then(function(response) {
+const deleteStudent = (ra) => {
+  fetch(`http://localhost:3000/students/delete/${ra}`, {
+      method: 'DELETE',
+    }).then((response) => {
       return response.json();
     })
-    .then(function(data) {
+    .then((data) => {
+      console.log('data',data);
+      fetchStudentsList();
+    });
+}
+
+function fetchStudentsList() {
+  $(".loader").show("slow");
+  $(".content-page").hide("fast");
+
+  fetch("http://localhost:3000/students/list")
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
       const table = $("#studentList tbody");
-      data.map(function(student) {
+      table.html("");
+      data.map((student) => {
         table.append(`
 
           <tr>
@@ -18,7 +43,7 @@ function fetchStudentsList() {
             <td>${student.cpf}</td>
             <td>
               <a href="studentManager.html?ra=${student.ra}">Editar</a>
-              <a href="#">Excluir</a>
+              <a href="#" class="remove-student" data-ra="${student.ra}">Excluir</a>
             </td>
           </tr>
 
