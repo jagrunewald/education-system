@@ -3,6 +3,21 @@ body {
   display: flex;
 }
 
+.btn {
+  height: 30px;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-weight: bold;
+  text-decoration: none;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background-color: grey;
+}
+
 .main-nav {
   background-color: black;
   width: 250px;
@@ -62,10 +77,6 @@ body {
   margin: 20px 0px;
   display: flex;
   justify-content: space-between;
-}
-
-.container .content-page .top-actions .form-search {
-  
 }
 
 .container .content-page .table-list {

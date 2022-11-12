@@ -4,6 +4,7 @@ let database = require('./database');
 
 const app = express();
 app.use(cors());
+app.use(express.json());
 
 app.get('/', (req, res) => {
   res.send('Hello World');
@@ -33,7 +34,21 @@ app.delete('/students/delete/:ra', (req, res) => {
     result: true,
     message: `O estudante ${req.params.ra} foi excluído com sucesso`,
   });
-} )
+});
+
+app.post("/students/save", (req,res) => {
+  database.push({
+    nome: req.body.name,
+    ra: req.body.ra,
+    email: req.body.email,
+    cpf: req.body.cpf,
+  });
+
+  res.send({
+    result: true,
+    message: "funcionou"
+  });
+});
 
 app.listen(3000);
 console.log("Server is running...");
