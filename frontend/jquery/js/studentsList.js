@@ -42,7 +42,7 @@ function fetchStudentsList() {
             <td>${student.nome}</td>
             <td>${student.cpf}</td>
             <td>
-              <a href="studentManager.html?ra=${student.ra}">Editar</a>
+              <a href="studentManager.html?ra=${student.ra}" class="edit-student">Editar</a>
               <a href="#" class="remove-student" data-ra="${student.ra}">Excluir</a>
             </td>
           </tr>
