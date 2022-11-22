@@ -10,9 +10,23 @@ app.get('/', (req, res) => {
   res.send('Hello World');
 })
 
-app.get('/students/list', (req, res) => {
+app.get('/students/list/:searchQuery?', (req, res) => {
+  let result = database;
+  let search = req.params.searchQuery;
+  
+  if(search) {
+    search = search.toLowerCase();
+    result = result.filter((student) => {
+      return (
+        student.ra == search ||
+        student.nome.toLowerCase().indexOf(search) != -1 ||
+        student.cpf == search
+      );
+    })
+  }
+
   setTimeout(() => {
-    res.send(database);
+    res.send(result);
   }, 2000);
 })
 
