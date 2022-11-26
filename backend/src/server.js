@@ -1,16 +1,21 @@
-const express = require('express');
-var cors = require('cors');
-let database = require('./database');
+const express = require("express");
+const knex = require("knex");
+const knexConfigFile = require("../knexfile");
+var cors = require("cors");
+let database = require("./database");
 
 const app = express();
+
+app.database = knex(knexConfigFile.test);
+
 app.use(cors());
 app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.send('Hello World');
+app.get("/", (req, res) => {
+  res.send("Hello World");
 })
 
-app.get('/students/list/:searchQuery?', (req, res) => {
+app.get("/students/list/:searchQuery?", (req, res) => {
   let result = database;
   let search = req.params.searchQuery;
   
@@ -25,21 +30,22 @@ app.get('/students/list/:searchQuery?', (req, res) => {
     })
   }
 
-  setTimeout(() => {
-    res.send(result);
-  }, 2000);
+  return app.database("students").select()
+    .then((data) => {
+      res.send(data);
+    });
+});
+
+app.get("/students/find/:ra", (req, res) => {
+  return app.database("students").select()
+    .where({ ra :  req.params.ra })
+    .first()
+    .then((response) => {
+      res.send(response);
+    });
 })
 
-app.get('/students/find/:ra', (req, res) => {
-  const studentFound = database.find(function(student) {
-    return student.ra == req.params.ra;
-  });
-  setTimeout(() => {
-    res.send(studentFound);
-  }, 2000);
-})
-
-app.delete('/students/delete/:ra', (req, res) => {
+app.delete("/students/delete/:ra", (req, res) => {
   database = database.filter((student) => {
     return student.ra != req.params.ra;
   });
@@ -63,22 +69,43 @@ app.post("/students/save", (req,res) => {
   });
 });
 
-app.put("/students/edit/:ra", (req, res) => {
-  database = database.filter((student) => {
-    return student.ra != req.params.ra;
-  });
+app.put("/students/edit/:ra", async(req, res) => {
+  const userFound = await app
+    .database("students")
+    .select()
+    .where({ ra : req.params.ra })
+    .first();
 
-  database.push({
-    nome: req.body.name,
-    ra: req.body.ra,
-    email: req.body.email,
-    cpf: req.body.cpf,
-  });
+    if(!userFound) {
+      return res.status(400).send({
+        result: false,
+        message: "O estudante informado não existe"
+      })
+    }
 
-  res.send({
-    result: true,
-    message: "Estudante atualizado com sucesso"
-  });
+    if(userFound) {
+      const studentUpdate = await app.
+        database("students")
+        .update({
+          email: req.body.email,
+          nome: req.body.name
+        })
+        .where({
+          ra: req.params.ra
+        });
+
+      if(studentUpdate) {
+        res.send({
+          result: true,
+          message: "O estudante foi atualizado com sucesso"
+        })
+      } else {
+        res.status(500).send({
+          result: false,
+          message: "Descula, mas não conseguimos atualizar o estudante"
+        });
+      }
+    }
 });
 
 app.listen(3000);
