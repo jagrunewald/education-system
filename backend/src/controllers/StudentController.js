@@ -30,46 +30,56 @@ module.exports = class StudentsController {
     });
   };
 
-  createAction = async (req, res) => {
-    if(req.body.name == '') {
-      return res.status(400).send({
-        result: false,
-        message: "O nome é um campo obrigatório",
-      });
+  isCreateDataValid = async (data) => {
+    if(data.name == '') {
+      return "O nome é um campo obrigatório";
     };
   
-    if(req.body.email == '') {
-      return res.status(400).send({
-        result: false,
-        message: "O email é um campo obrigatório",
-      });
+    if(data.email == '') {
+      return "O email é um campo obrigatório";
     };
   
-    if(req.body.ra == '' && parseInt(req.body.ra) != req.body.ra) {
-      return res.status(400).send({
-        result: false,
-        message: "O RA é um campo obrigatório e precisa ser um número inteiro",
-      });
+    if(data.ra == '' && parseInt(data.ra) != data.ra) {
+      return "O RA é um campo obrigatório e precisa ser um número inteiro";
     };
   
-    if(req.body.cpf == '' && parseInt(req.body.cpf) != req.body.cpf) {
-      return res.status(400).send({
-        result: false,
-        message: "O cpf é um campo obrigatório e precisa ser um numero inteiro",
-      });
+    if(data.cpf == '' && parseInt(data.cpf) != data.cpf) {
+      return "O cpf é um campo obrigatório e precisa ser um numero inteiro";
     };
-  
+
     const userExists = await this.app.database("students")
       .select()
-      .where({ ra: req.body.ra })
+      .where({ ra: data.ra })
       .first();
   
     if(userExists) {
+      return "Desculpe, mas já existe um estudante cadastrado com esse RA.";
+    };
+
+    return true;
+  };
+
+  isEditDataValid = (data) => {
+    if(data.name == '') {
+      return "O nome é um campo obrigatório";
+    };
+  
+    if(data.email == '') {
+      return "O email é um campo obrigatório";
+    };
+
+    return true;
+  }
+
+  createAction = async (req, res) => {
+    const isCreateDataValid = await this.isCreateDataValid(req.body);
+
+    if(isCreateDataValid !== true) {
       return res.status(400).send({
         result: false,
-        message: "Desculpe, mas já existe um estudante cadastrado com esse RA."
+        message: isCreateDataValid,
       });
-    };
+    }
   
     return this.app.database("students")
       .insert({
@@ -94,17 +104,12 @@ module.exports = class StudentsController {
   };
 
   editAction = async (req, res) => {
-    if(req.body.name == '') {
+    const isEditDataValid = this.isEditDataValid(req.body);
+
+    if(isEditDataValid != true) {
       return res.status(400).send({
         result: false,
-        message: "O nome é um campo obrigatório",
-      });
-    };
-  
-    if(req.body.email == '') {
-      return res.status(400).send({
-        result: false,
-        message: "O email é um campo obrigatório",
+        message: isEditDataValid,
       });
     };
     
