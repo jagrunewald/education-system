@@ -7,6 +7,10 @@ class StudentListPage extends React.Component {
     
     this.state = {
       studentsList: [],
+      isLoading: true,
+      formSearch: {
+        searchInput : "",
+      }
     }
   }
 
@@ -16,7 +20,40 @@ class StudentListPage extends React.Component {
     this.fetchStudentsList();
   }
 
+  onClickremoveStudent = (ra) => {
+    console.log(ra)
+    const confirmation = window.confirm("Você realmente deseja excluir esse estudante?");
+    
+    if(confirmation) {
+      this.deleteStudent(ra);
+    }
+  }
+
+  deleteStudent = (ra) => {
+    this.setState({
+      isLoading: true,
+    });
+
+    fetch(`http://localhost:3006/students/delete/${ra}`, {
+        method: 'DELETE',
+      }).then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        console.log('data',data);
+        this.fetchStudentsList();
+      });
+  }
+
+  onSubmitFormSearch = (event) => {
+    event.preventDefault();
+    this.fetchStudentsList(event.target.searchInput.value);
+  }
+
   fetchStudentsList = (searchQuery = "") => {
+    this.setState({
+      isLoading: true,
+    });
     // $(".loader").show("slow");
     // $(".content-page").hide("fast");
   
@@ -27,6 +64,7 @@ class StudentListPage extends React.Component {
       .then((data) => {
         this.setState({
           studentsList: data,
+          isLoading: false,
         })
   
         // $(".loader").hide("fast");
@@ -39,11 +77,31 @@ class StudentListPage extends React.Component {
   };
 
   render() {
+
+    if(this.state.isLoading) {
+      return <div className="loader"></div>;
+    }
     return (
       <div className="padding-left-right-20">
         <div className="top-actions">
-          <form  id="form-search-student" className="form-search">
-            <input type="text" name="searchInput" id="searchInput" />
+          <form  
+            id="form-search-student"
+            className="form-search"
+            onSubmit={this.onSubmitFormSearch}
+          >
+            <input
+              type="text"
+              name="searchInput"
+              id="searchInput"
+              value={this.state.formSearch.searchInput}
+              onChange={(event) => {
+                this.setState({
+                  formSearch: {
+                    searchInput: event.target.value,
+                  }
+                })
+              }}
+            />
             <button>Pesquisar</button>
           </form>
           <a href="studentManager.html" className="btn">Cadastrar Aluno</a>
@@ -61,13 +119,19 @@ class StudentListPage extends React.Component {
             {
               this.state.studentsList.map((student) => {
                 return (
-                  <tr>
+                  <tr key={student.ra}>
                     <td>{student.ra}</td>
                     <td>{student.nome}</td>
                     <td>{student.cpf}</td>
                     <td>
                       <a href={`studentManager.html?ra={student.ra}`}>Editar</a>
-                      <a href="/#" class="remove-student" data-ra={student.ra}>Excluir</a>
+                      <a 
+                        href="/#"
+                        className="remove-student"
+                        onClick={() => {this.onClickremoveStudent(student.ra)}}
+                      >
+                        Excluir
+                      </a>
                     </td>
                   </tr>
 
