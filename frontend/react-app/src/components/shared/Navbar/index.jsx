@@ -7,7 +7,7 @@ const Navbar = () => {
       Módulo academico
     </header>
     <ul className="nav-links">
-      <a href="#" className="nav-item">
+      <a href="/#" className="nav-item">
         <li>Alunos</li>
       </a>
     </ul>

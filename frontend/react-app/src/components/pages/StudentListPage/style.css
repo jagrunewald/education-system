@@ -3,11 +3,6 @@ body {
   display: flex;
 }
 
-.main-container {
-  margin: 0px;
-  display: flex;
-}
-
 .btn {
   height: 30px;
   padding-left: 20px;
