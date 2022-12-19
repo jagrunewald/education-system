@@ -13,7 +13,7 @@ function App() {
           <div className="content-page">
             <Routes>
               <Route path="/" element={<StudentListPage />} />
-              <Route path="/student/add" element={<StudentManagerPage />} />
+              <Route path="/save" element={<StudentManagerPage />} />
               <Route path="/student/edit/:ra" element={<StudentManagerPage />} />
             </Routes>   
           </div>

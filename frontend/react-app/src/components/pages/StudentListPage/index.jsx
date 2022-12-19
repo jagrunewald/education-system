@@ -1,4 +1,5 @@
 import React from "react";
+import Loader from "../../shared/Loader";
 import "./style.css";
 
 class StudentListPage extends React.Component {
@@ -79,7 +80,7 @@ class StudentListPage extends React.Component {
   render() {
 
     if(this.state.isLoading) {
-      return <div className="loader"></div>;
+      return <Loader />
     }
     return (
       <div className="padding-left-right-20">
@@ -107,7 +108,7 @@ class StudentListPage extends React.Component {
             />
             <button>Pesquisar</button>
           </form>
-          <a href="/student/add" className="btn">Cadastrar Aluno</a>
+          <a href="/save" className="btn">Cadastrar Aluno</a>
         </div>
         <table id="studentList" className="table-list">
           <thead>
