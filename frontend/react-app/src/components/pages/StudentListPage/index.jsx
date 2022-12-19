@@ -83,6 +83,9 @@ class StudentListPage extends React.Component {
     }
     return (
       <div className="padding-left-right-20">
+        <header className="main-header">
+          Lista de Alunos
+        </header>
         <div className="top-actions">
           <form  
             id="form-search-student"
@@ -104,7 +107,7 @@ class StudentListPage extends React.Component {
             />
             <button>Pesquisar</button>
           </form>
-          <a href="/student-manager" className="btn">Cadastrar Aluno</a>
+          <a href="/student/add" className="btn">Cadastrar Aluno</a>
         </div>
         <table id="studentList" className="table-list">
           <thead>
@@ -124,7 +127,7 @@ class StudentListPage extends React.Component {
                     <td>{student.nome}</td>
                     <td>{student.cpf}</td>
                     <td>
-                      <a href={`studentManager.html?ra={student.ra}`}>Editar</a>
+                      <a href={`/student/edit/${student.ra}`}>Editar</a>
                       <a 
                         href="/#"
                         className="remove-student"

@@ -1,0 +1,132 @@
+body {
+  margin: 0px;
+  display: flex;
+}
+
+.main-nav {
+  background-color: black;
+  width: 250px;
+  height: 100vh;
+}
+
+.main-nav header {
+  font-size: 20px;
+  font-weight: 600;
+  color: white;
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid gray;
+}
+
+.main-nav .nav-links {
+  list-style: none;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.main-nav .nav-links a.nav-item {
+  text-decoration: none;
+  color: white;
+  padding: 5px;
+  display: block;
+  border-radius: 5px;
+}
+
+.main-nav .nav-links a.nav-item:hover {
+  background-color: rgb(22, 68, 68);
+  display: block;
+}
+
+.container {
+  width: 100%;
+}
+
+.container .main-header {
+  background-color: rgb(223, 220, 220);
+  width: 100%;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.container .content-page {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.form {
+  background-color: aqua;
+  max-width: 700px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.form-group {
+  border: 1px solid gray;
+  margin-top: 15px;
+  height: 40px;
+  display: flex;
+}
+
+.form-group label {
+  width: 150px;
+  background-color: #ccc;
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  padding-left: 20px;
+}
+
+.form-group input {
+  width: 100%;
+  border: 0px;
+  border-left: 1px solid gray;
+}
+
+.form .actions {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: right;
+  margin-top: 20px;
+  text-align: right;
+}
+
+.btn {
+  height: 30px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  font-weight: bold;
+  text-decoration: none;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  color: white;
+  background-color: grey;
+}
+
+.loader {
+  border: 16px solid #f3f3f3;
+  border-top: 16px solid #3498db;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+  margin: auto;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.display-none {
+  display: none;
+}
