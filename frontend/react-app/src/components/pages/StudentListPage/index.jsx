@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Loader from "../../shared/Loader";
 import "./style.css";
 
@@ -108,7 +109,9 @@ class StudentListPage extends React.Component {
             />
             <button>Pesquisar</button>
           </form>
-          <a href="/save" className="btn">Cadastrar Aluno</a>
+          <Link to="/student/add" className="btn">
+              Cadastrar Aluno
+          </Link>
         </div>
         <table id="studentList" className="table-list">
           <thead>
@@ -128,7 +131,9 @@ class StudentListPage extends React.Component {
                     <td>{student.nome}</td>
                     <td>{student.cpf}</td>
                     <td>
-                      <a href={`/student/edit/${student.ra}`}>Editar</a>
+                      <Link to={`/student/edit/${student.ra}`}>
+                        Editar
+                      </Link>
                       <a 
                         href="/#"
                         className="remove-student"

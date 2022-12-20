@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./style.css";
 
 const Navbar = () => {
@@ -7,9 +8,9 @@ const Navbar = () => {
       Módulo academico
     </header>
     <ul className="nav-links">
-      <a href="/#" className="nav-item">
+      <Link to="/" className="nav-item">
         <li>Alunos</li>
-      </a>
+      </Link>
     </ul>
   </nav>
   );

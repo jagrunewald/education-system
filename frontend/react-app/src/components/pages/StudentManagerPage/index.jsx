@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { Navigate, Link } from "react-router-dom";
 import Loader from "../../shared/Loader";
 import "./style.css";
 
 const StudentManagerPage = () => {
 
+  const [isRedirect, setIsRedirect] = useState(false);
   const [isLoading, uptadeIsLoading] = useState(false);
   const [name, updateName] = useState("");
   const [email, updateEmail] = useState("");
@@ -54,8 +56,14 @@ const StudentManagerPage = () => {
       })
       .then((data) => {
         alert(data.message);
-        document.location.href = "/";
+        if (data.result) {
+          setIsRedirect(true);
+        }
       });
+  }
+
+  if (isRedirect) {
+    return <Navigate to="/" />;
   }
 
   if(isLoading) {
@@ -127,7 +135,7 @@ const StudentManagerPage = () => {
             />
           </div>
           <div className="actions">
-            <a href="studentsList.html"><button className="btn">Cancelar</button></a>
+            <Link to="/"><button className="btn">Cancelar</button></Link>
             <button className="btn">Salvar</button>
           </div>
         </form>
