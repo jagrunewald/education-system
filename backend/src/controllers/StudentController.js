@@ -17,6 +17,7 @@ module.exports = class StudentsController {
     return query
       .select()
       .then((data) => {
+        console.log("listaction", data)
         res.send(data);
     });
   };

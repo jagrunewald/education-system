@@ -14,7 +14,13 @@ function App() {
             <Routes>
               <Route path="/" element={<StudentListPage />} />
               <Route path="/save" element={<StudentManagerPage />} />
-              <Route path="/student/edit/:ra" element={<StudentManagerPage />} />
+              <Route path="/student/edit/:id" element={<StudentManagerPage />} />
+              <Route path="*" element={
+                <div>
+                  <h1>Error 404</h1>
+                  <p>Não foi possível encontrar a página solicitada</p>
+                </div>
+              } />
             </Routes>   
           </div>
         </section>
